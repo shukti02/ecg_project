@@ -40,10 +40,10 @@ MSpos(x) = []; models(:,x) = [];
 MSinterval = [[1;MSbradyPos] [MSbradyPos;MSpos(end)+1]];
 heal_pos = []; risk_pos = [];
 for i = 1:length(MSinterval)
-    h_pos = MSpos(MSpos>MSinterval(i,1) & MSpos<(MSinterval(i,2)-900000*(i<=length(MSbradyPos))));
+    h_pos = find(MSpos>MSinterval(i,1) & MSpos<(MSinterval(i,2)-900000*(i<=length(MSbradyPos))));
     heal_pos = [heal_pos h_pos];
     if (i<=length(MSbradyPos))
-        r_pos = MSpos(MSpos>=(MSbradyPos(i)-900000) & MSpos<MSbradyPos(i));
+        r_pos = find(MSpos>=(MSbradyPos(i)-900000) & MSpos<MSbradyPos(i));
         risk_pos = [risk_pos r_pos];        
     end
 end
