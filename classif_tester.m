@@ -50,8 +50,8 @@ end
 heal_pos = unique(heal_pos); 
 risk_pos = unique(risk_pos);
 
-healthy = models(1:100,heal_pos);
-risk = models(1:100,risk_pos);
+healthy_orig = models(1:100,heal_pos);
+risk_orig = models(1:100,risk_pos);
 
 %clearvars -except healthy risk heal_pos risk_pos
 
