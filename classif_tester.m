@@ -1,6 +1,4 @@
 % check if pushed 
-cdscv
-
 clear all; clc;
 matObj = matfile('~/Desktop/SHUKTI_new/Patients/WG 015.mat');
 
@@ -37,14 +35,14 @@ for i = 1:length(MSbradyPos)
 end
 
 %------------------- data for all beats without outlier removal----------------------------------------- 
-x = find(isnan(MSpos));
-MSpos(x) = [];
-MSinterval = [[1;MSbradyPos] [MSbradyPos;MSpos(end)+1]];
-healthy = []; risk = [];
-for i = 1:length(MSbradyPos)
-    healthy = [healthy models(:,(MSpos>MSinterval(i,1) & MSpos<MSinterval(i,2)-1800000*(i~=length(MSbradyPos))))];
-    risk = [risk models(:,(MSpos>=MSbradyPos(i)-1800000 & MSpos<MSbradyPos(i)))];
-end
+% x = find(isnan(MSpos));
+% MSpos(x) = [];
+% MSinterval = [[1;MSbradyPos] [MSbradyPos;MSpos(end)+1]];
+% healthy = []; risk = [];
+% for i = 1:length(MSbradyPos)
+%     healthy = [healthy models(:,(MSpos>MSinterval(i,1) & MSpos<MSinterval(i,2)-1800000*(i~=length(MSbradyPos))))];
+%     risk = [risk models(:,(MSpos>=MSbradyPos(i)-1800000 & MSpos<MSbradyPos(i)))];
+% end
 
 clearvars -except healthy risk
 
