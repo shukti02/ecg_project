@@ -1,14 +1,19 @@
-function save_groupedFigures_2Dor3D(healthy,risk,param1,param2,param3)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+function save_groupedFigures_2Dor3D(healthy,out_heal_cell,risk,out_risk_cell,param1,param2,param3)
+%To save 2D or 3D grouped plots of healthy and risk data after outlier
+%removal
+%inputs: --healthy - matrix containing healthy data (rows: features,
+%                    columns:instances)
+%        --risk - matrix containing risk data
+%        --out_heal_cell, out_risk_cell: cells containing outliers for each
+%        parameter from the healthy and risk data, computed by the function
+%        correct_for_outliers.
+%        --param1,param2,param3: Specify parameters to plot for; if param3
+%        is missing the plot is automatically 2D.
+clf; close all
 
-out_heal_mat = correct_for_outliers(healthy);
-out_risk_mat = correct_for_outliers(risk);
-
-
-if(nargin<5)
-    out_risk_rem = cat(2,out_risk_mat{param1},out_risk_mat{param2});
-    out_heal_rem = cat(2,out_heal_mat{param1},out_heal_mat{param2});
+if(nargin<7)
+    out_risk_rem = cat(2,out_risk_cell{param1},out_risk_cell{param2});
+    out_heal_rem = cat(2,out_heal_cell{param1},out_heal_cell{param2});
     healthy(:,out_heal_rem) = [];
     risk(:,out_risk_rem) = [];
     
@@ -21,10 +26,10 @@ if(nargin<5)
     xlabel(strcat('param\_',num2str(param1)));
     ylabel(strcat('param\_',num2str(param2)));
     title(strcat('pairwise\_plot\_params\_',num2str(param1),'\_',num2str(param2)));
-    saveas(gcf,strcat('pairwise_plot_params_',num2str(param1),'_',num2str(param2),'.jpg'));
+    saveas(gcf,strcat('~/Desktop/SHUKTI_new/task6SVM/figs/pairwise_plot_params_',num2str(param1),'_',num2str(param2),'.jpg'));
 else
-    out_risk_rem = cat(2,out_risk_mat{param1},out_risk_mat{param2},out_risk_mat{param3});
-    out_heal_rem = cat(2,out_heal_mat{param1},out_heal_mat{param2},out_heal_mat{param3});
+    out_risk_rem = cat(2,out_risk_cell{param1},out_risk_cell{param2},out_risk_cell{param3});
+    out_heal_rem = cat(2,out_heal_cell{param1},out_heal_cell{param2},out_heal_cell{param3});
     healthy(:,out_heal_rem) = [];
     risk(:,out_risk_rem) = [];
     
@@ -43,8 +48,8 @@ else
     xlabel(strcat('param\_',num2str(param1)));
     ylabel(strcat('param\_',num2str(param2)));
     zlabel(strcat('param\_',num2str(param3)));
-    title(strcat('pairwise\_plot\_params\_',num2str(param1),'\_',num2str(param2),'\_',num2str(param3)));
-    saveas(gcf,strcat('3D_plot_params_',num2str(param1),'_',num2str(param2),'_',num2str(param3),'.jpg'));
+    title(strcat('3D\_plot\_params\_',num2str(param1),'\_',num2str(param2),'\_',num2str(param3)));
+    saveas(gcf,strcat('~/Desktop/SHUKTI_new/task6SVM/figs/3D_plot_params_',num2str(param1),'_',num2str(param2),'_',num2str(param3),'.jpg'));
 end
 
 end
