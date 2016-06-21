@@ -1,17 +1,17 @@
-function [out_mat] = correct_for_outliers(matrix_orig)
+function [out_cell] = correct_for_outliers(matrix_orig)
 %correcting for each parameter separately, based on relevance
 %inputs: matrix_orig: matrix containing rows as parameters(features) from MS models 
 %        and columns as instances  
 
-%outputs: out_mat: contains indices of outliers
+%outputs: out_cell: contains indices of outliers
 
-out_mat = cell(99,1);
+out_cell = cell(99,1);
 
 %tau cannot be larger that the max spacing between two beats
 tau_vector = [2 3 4 5 18 19 24 25 26 27];
 
 for i = 1 : length(tau_vector)
-    out_mat{tau_vector(i)} = find(abs(matrix_orig(tau_vector(i),:))>max(matrix_orig(100,:)));
+    out_cell{tau_vector(i)} = find(abs(matrix_orig(tau_vector(i),:))>max(matrix_orig(100,:)));
 end
 
 %widths of gaussians cannot be larger than the max spacing between two
@@ -19,7 +19,7 @@ end
 w_vector = [10:17,22,23,32:39];
 
 for i = 1 : length(w_vector)
-    out_mat{w_vector(i)} = find(abs(matrix_orig(w_vector(i),:))>max(matrix_orig(100,:)));
+    out_cell{w_vector(i)} = find(abs(matrix_orig(w_vector(i),:))>max(matrix_orig(100,:)));
 end
 
 
@@ -28,6 +28,6 @@ end
 M_vector = [6:9,20,21,28:31,40:99];
 
 for i = 1 : length(M_vector)
-    out_mat{M_vector(i)} = find(abs(matrix_orig(M_vector(i),:))>10^5);
+    out_cell{M_vector(i)} = find(abs(matrix_orig(M_vector(i),:))>10^5);
 end
 end
